@@ -1,0 +1,93 @@
+execfile------spder_record.py
+execfile------getDailySentence
+execfile------iciba_study_spider.py
+execfile------jianghu_reading_spider.pyexecfile------yingyu_com_chilren_story_spider.py
+
+execfile------yingyu_com_chilren_spoken_english_spider.py
+execfile------adreep_spider.py
+Traceback (most recent call last):
+  File "/python/Execfile.py", line 78, in adreep_spider
+    task_adreep_spider()
+NameError: global name 'task_adreep_spider' is not defined
+
+execfile------Henxingwang_listening_spider.py
+execfile------Henxingwang_composition_spider.py
+execfile------Henxingwang_word_spider.py
+execfile------Henxingwang_yuedulijie_spider.py
+execfile------cuyoo_spider.py
+execfile------en8848_story_spider.py
+execfile------www_iyuba_com.py
+execfile------www_yingyu_xdf_cn.py
+execfile------youdaoapp.py
+execfile------chinavoa_com.py
+execfile------dict_education.py
+already exit
+execfile------getJokeTask
+Traceback (most recent call last):
+  File "/python/Execfile.py", line 113, in cuyoo_spider
+    task_cuyoo_spider()
+  File "/python/cuyoo_spider.py", line 141, in task_cuyoo_spider
+    get_all_link(url,catid)
+  File "/python/cuyoo_spider.py", line 112, in get_all_link
+    req = requests.get(url,headers=headers)
+  File "/usr/lib/python2.7/site-packages/requests/api.py", line 68, in get
+    return request('get', url, **kwargs)
+  File "/usr/lib/python2.7/site-packages/requests/api.py", line 50, in request
+    response = session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/site-packages/requests/sessions.py", line 464, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/site-packages/requests/sessions.py", line 576, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/site-packages/requests/adapters.py", line 415, in send
+    raise ConnectionError(err, request=request)
+ConnectionError: ('Connection aborted.', gaierror(-2, 'Name or service not known'))
+
+Traceback (most recent call last):
+  File "/python/Execfile.py", line 50, in iciba_study_spider
+    task_iciba_study_spider()
+  File "/python/iciba_study_spider.py", line 209, in task_iciba_study_spider
+    get_all_link(url)
+  File "/python/iciba_study_spider.py", line 154, in get_all_link
+    nowplaying_movies(href,img_url)
+  File "/python/iciba_study_spider.py", line 28, in nowplaying_movies
+    req = requests.get(url,headers=headers)
+  File "/usr/lib/python2.7/site-packages/requests/api.py", line 68, in get
+    return request('get', url, **kwargs)
+  File "/usr/lib/python2.7/site-packages/requests/api.py", line 50, in request
+    response = session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/site-packages/requests/sessions.py", line 450, in request
+    prep = self.prepare_request(req)
+  File "/usr/lib/python2.7/site-packages/requests/sessions.py", line 381, in prepare_request
+    hooks=merge_hooks(request.hooks, self.hooks),
+  File "/usr/lib/python2.7/site-packages/requests/models.py", line 304, in prepare
+    self.prepare_url(url, params)
+  File "/usr/lib/python2.7/site-packages/requests/models.py", line 361, in prepare_url
+    "Perhaps you meant http://{0}?".format(url))
+MissingSchema: Invalid URL u'': No schema supplied. Perhaps you meant http://?
+
+execfile------neihanduanziapp
+Traceback (most recent call last):
+  File "/python/Execfile.py", line 141, in youdaoapp
+    task_youdaoapp()
+  File "/python/youdaoapp.py", line 246, in task_youdaoapp
+    list('http://dict.youdao.com/infoline/list?client=mobile&lastId=0&mode=publish&entranceId=35&keyfrom=mdict.7.2.0.android&model=MI_5&mid=6.0.1&imei=861069127869242&vendor=youdaoweb&screen=1080x1920&ssid=coffese&network=wifi&abtest=3')
+  File "/python/youdaoapp.py", line 78, in list
+    parseYoudaoWebPage(card['url'], item_id, publish_time, card['media'], card['audiourl'])
+  File "/python/youdaoapp.py", line 85, in parseYoudaoWebPage
+    browser.get(url)
+  File "/usr/lib/python2.7/site-packages/selenium/webdriver/remote/webdriver.py", line 245, in get
+    self.execute(Command.GET, {'url': url})
+  File "/usr/lib/python2.7/site-packages/selenium/webdriver/remote/webdriver.py", line 233, in execute
+    self.error_handler.check_response(response)
+  File "/usr/lib/python2.7/site-packages/selenium/webdriver/remote/errorhandler.py", line 165, in check_response
+    raise exception_class(value)
+WebDriverException: Message: Missing Command Parameter - {"headers":{"Accept":"application/json","Accept-Encoding":"identity","Connection":"close","Content-Length":"64","Content-Type":"application/json;charset=UTF-8","Host":"127.0.0.1:41769","User-Agent":"Python-urllib/2.7"},"httpVersion":"1.1","method":"POST","post":"{\"url\": \"\", \"sessionId\": \"2a7f1610-824b-11e8-8d0f-e5fda6e8e63c\"}","url":"/url","urlParsed":{"anchor":"","query":"","file":"url","directory":"/","path":"/url","relative":"/url","port":"","host":"","password":"","user":"","userInfo":"","authority":"","protocol":"","source":"/url","queryKey":{},"chunks":["url"]},"urlOriginal":"/session/2a7f1610-824b-11e8-8d0f-e5fda6e8e63c/url"}
+
+
+exception
+exception
+exception
+exception
+exception
+exception
+execfile------spder_record_finish.py
