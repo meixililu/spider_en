@@ -35,7 +35,7 @@ def nowplaying_movies(url,img_url):
             # print 'title has 外语角'
             return
         if is_exit(title):
-            # print('already exit')
+            print('already exit')
             return
         else:
             div = soup.find('div',id='article')
@@ -79,14 +79,14 @@ def nowplaying_movies(url,img_url):
 
             item_id += 1
             typeId = get_type_id(type_name)
-            # print title
-            # print item_id
-            # print typeId
-            # print type_name
-            # print media_url
-            # print img_url
-            # print publish_time
-            # print ('contents:\n' + contents)
+            print title
+            print item_id
+            print typeId
+            print type_name
+            print media_url
+            print img_url
+            print publish_time
+            print ('contents:\n' + contents)
 
             Composition = Object.extend('Reading')
             mComposition = Composition()
@@ -104,7 +104,7 @@ def nowplaying_movies(url,img_url):
             mComposition.set('category_2', category_2)
             mComposition.set('type', type)
             mComposition.set('media_url', media_url)
-            mComposition.save()
+            # mComposition.save()
             # print('save item')
     except:
         print traceback.format_exc()
@@ -180,21 +180,21 @@ def task():
             type = type2
 
 
-        for item in type:
-            for i in range(1,2):
-            # for i in range(item[1],0,-1):
-                if index == 0:
-                    category = 'jokes'
-                elif index == 1:
-                    category = 'shuangyu_reading'
-                elif index == 2:
-                    category = 'shuangyu_reading'
-                if i == 1:
-                    url = 'http://www.hjenglish.com/yingyuxiaohua/%s/' % (item[0])
-                else:
-                    url = 'http://www.hjenglish.com/yingyuxiaohua/%s_%d/'% (item[0],i)
-                # print('root url:'+url)
-                get_all_link(url)
+        # for item in type:
+        #     for i in range(1,2):
+        #     # for i in range(item[1],0,-1):
+        #         if index == 0:
+        #             category = 'jokes'
+        #         elif index == 1:
+        #             category = 'shuangyu_reading'
+        #         elif index == 2:
+        #             category = 'shuangyu_reading'
+        #         if i == 1:
+        #             url = 'http://www.hjenglish.com/yingyuxiaohua/%s/' % (item[0])
+        #         else:
+        #             url = 'http://www.hjenglish.com/yingyuxiaohua/%s_%d/'% (item[0],i)
+        #         print('root url:'+url)
+        #         get_all_link(url)
 
 
 if __name__ == '__main__':

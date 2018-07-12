@@ -95,16 +95,16 @@ def neihanduanziapp():
                         # print img
                         # print source_url
                         # print type
-                        Reading = Object.extend('Joke')
-                        mReading = Reading()
-                        mReading.set('text', title)
-                        mReading.set('img', img)
-                        mReading.set('ratio', ratio)
-                        mReading.set('video_url', video_url)
-                        mReading.set('source_url', source_url)
-                        mReading.set('type', type)
-                        mReading.set('category', '102')
-                        mReading.save()
+                        # Reading = Object.extend('Joke')
+                        # mReading = Reading()
+                        # mReading.set('text', title)
+                        # mReading.set('img', img)
+                        # mReading.set('ratio', ratio)
+                        # mReading.set('video_url', video_url)
+                        # mReading.set('source_url', source_url)
+                        # mReading.set('type', type)
+                        # mReading.set('category', '102')
+                        # # mReading.save()
                         # print('save item')
 
 def getImageRatio(url):

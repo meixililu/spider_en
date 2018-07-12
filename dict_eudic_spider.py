@@ -66,7 +66,7 @@ def nowplaying_movies(url,publish_time):
         browser.set_page_load_timeout(20)
         browser.get(url)
         soup = BeautifulSoup(browser.page_source, "html5lib")
-        time.sleep(10)
+        time.sleep(5)
 
         contentInfo = soup.find('div',class_='contentInfo')
         if contentInfo:
@@ -115,7 +115,7 @@ def nowplaying_movies(url,publish_time):
         else:
             type = 'text'
     except:
-        # print 'exception nowplaying_movies'
+        print 'exception nowplaying_movies'
         # print traceback.format_exc()
         pass
 
@@ -205,14 +205,19 @@ def get_links(url):
                 title = dl.find('dd',class_='title').text
                 time = dl.find('span',class_='date')
                 publish_time = datetime.strptime(time.text.strip(), "%Y-%m-%d")
+                last_time = datetime.strptime("2018-06-01", "%Y-%m-%d")
+                delta = publish_time - last_time
                 # print link
-                if not is_title_exit(title):
-                    nowplaying_movies(link,publish_time)
+                if delta.days > 0:
+                    if not is_title_exit(title):
+                        nowplaying_movies(link,publish_time)
+                    else:
+                        # print 'title exit'
+                        break
+                    if not isContinue:
+                        # print 'not continue'
+                        break
                 else:
-                    # print 'title exit'
-                    break
-                if not isContinue:
-                    # print 'not continue'
                     break
 
 def get_all_link(url):

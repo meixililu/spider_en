@@ -246,7 +246,7 @@ def task_en8848_story_spider():
                     url = 'http://www.en8848.com.cn/%s/%s/index.html' % (type_url,item[0])
                 else:
                     url = 'http://www.en8848.com.cn/%s/%s/index_%d.html'% (type_url,item[0],i)
-                # print('root url:'+url)
+                print('root url:'+url)
                 get_all_link(url)
 
 

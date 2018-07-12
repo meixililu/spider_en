@@ -30,17 +30,26 @@ def nowplaying_movies(url,publish_time):
         print('already exit')
         return
 
-    your_string = soup.find('div',class_='new-body text-muted fw3').get_text()
-    contents = your_string.strip()
+    your_string = soup.find('div',id='bodybox')
+    if your_string:
+        contents = getContent(your_string.get_text().strip())
 
-    type_name = soup.find('li',class_='active').find('a').text
-    typeId = get_type_id(type_name)
+    type_name = ""
+    type_name_tag = soup.select('li.active > a')
+    if type_name_tag:
+        type_name = type_name_tag[0].text
+        typeId = get_type_id(type_name)
+
+    img_tag = soup.select("div#bodybox > div > img")
+    if img_tag:
+        img_url = "http://www.adreep.cn" + img_tag[0]['src']
 
     # print(title)
     # print(type_name)
     # print(typeId)
     # print(item_id)
     # print(contents)
+    # print(img_url)
 
     item_id += 1
     Composition = Object.extend('Reading')
@@ -58,8 +67,22 @@ def nowplaying_movies(url,publish_time):
     mComposition.set('category', 'composition')
     mComposition.set('type', 'text')
     mComposition.save()
-    print('save item')
+    # print('save item')
 
+def getContent(content):
+    content = content.replace(u'查看全文','')
+    contents = ''
+    for con in content.splitlines():
+        if con.strip() is None:
+            continue
+        elif len(con.strip()) == 0:
+            continue
+        else:
+            contents += con.strip()
+            contents += '\n\n'
+    contents = contents.strip()
+
+    return contents
 
 def is_exit(str,publish_time):
     query = Query('Reading')
@@ -115,7 +138,7 @@ def get_lastest_item_id():
         return querys[0].get("item_id")
 
 item_id = 0
-def task():
+def task_adreep_spider():
     global item_id
     item_id = get_lastest_item_id()
     list = [('xx',2),('cz',2),('gz',2),('dxyy',2),('fw',2)]
@@ -129,7 +152,7 @@ def task():
 
 
 if __name__ == '__main__':
-    task()
+    task_adreep_spider()
 
 
 

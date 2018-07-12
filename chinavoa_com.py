@@ -172,7 +172,7 @@ def parse_page(url,publish_time):
             mComposition.save()
             # print('save item')
     except:
-        # print traceback.format_exc()
+        print 'exception parse_page'.encode('utf-8')
         # print url
         return
 
@@ -276,6 +276,9 @@ def get_all_link(url):
 
 def task_chinavoa_com():
     get_all_link('http://m.chinavoa.com/list-811-1.html')
+    get_all_link('http://m.chinavoa.com/list-206-1.html')
+    get_all_link('http://m.chinavoa.com/voa_special_english/')
+    get_all_link('http://m.chinavoa.com/voa_standard_english/')
     get_all_link('http://m.chinavoa.com/npr/')
     get_all_link('http://m.chinavoa.com/60_second_science/')
     get_all_link('http://m.chinavoa.com/cnn/')

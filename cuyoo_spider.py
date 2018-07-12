@@ -54,7 +54,8 @@ def nowplaying_movies(url,typeId,publish_time):
     contents = ''
     img_url = ''
     type_name = ''
-    browser = webdriver.PhantomJS(executable_path='/root/phantomjs/bin/phantomjs')
+    # browser = webdriver.PhantomJS(executable_path='/root/phantomjs/bin/phantomjs')
+    browser = webdriver.PhantomJS(executable_path='/Users/luli/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs')
     browser.get(url)
     # print 'current_url:'+browser.current_url.encode('utf-8')
     # time.sleep(3)
@@ -77,11 +78,11 @@ def nowplaying_movies(url,typeId,publish_time):
                     contents += td.text.strip() + '\n\n'
 
             type_name = get_type_name(typeId)
-            # print(title.encode('utf-8'))
-            # print(contents.encode('utf-8'))
-            # print('img_url:'+img_url.encode('utf-8'))
-            # print(typeId.encode('utf-8'))
-            # print(type_name.encode('utf-8'))
+            print(title.encode('utf-8'))
+            print(contents.encode('utf-8'))
+            print('img_url:'+img_url.encode('utf-8'))
+            print(typeId.encode('utf-8'))
+            print(type_name.encode('utf-8'))
             item_id += 1
             Composition = Object.extend('Reading')
             mComposition = Composition()
@@ -97,7 +98,7 @@ def nowplaying_movies(url,typeId,publish_time):
             mComposition.set('source_name', '酷悠双语网')
             mComposition.set('category', 'shuangyu_reading')
             mComposition.set('type', 'text')
-            mComposition.save()
+            # mComposition.save()
     except:
         print 'except return'.encode('utf-8')
         # time.sleep(5)
@@ -126,19 +127,19 @@ def get_all_link(url,catid):
 def task_cuyoo_spider():
     global item_id
     catids = (1,2,3,4,8,9)
-    for catid in catids:
-        item_id = get_lastest_item_id(catid);
-
-        # file1 = open(r'cuyoo_index.txt')
-        # index = pickle.load(file1)
-        # file1.close()
-        # index = 0
-        for i in range(1,2):
-            #     # file = open('cuyoo_index.txt','wb')
-            #     # pickle.dump(i, file)
-            #     # file.close()
-            url = 'http://www.cuyoo.com/portal.php?mod=list&catid=%d&page=%d' % (catid,i)
-            get_all_link(url,catid)
+    # for catid in catids:
+    #     item_id = get_lastest_item_id(catid);
+    #
+    #     # file1 = open(r'cuyoo_index.txt')
+    #     # index = pickle.load(file1)
+    #     # file1.close()
+    #     # index = 0
+    #     for i in range(1,2):
+    #         #     # file = open('cuyoo_index.txt','wb')
+    #         #     # pickle.dump(i, file)
+    #         #     # file.close()
+    #         url = 'http://www.cuyoo.com/portal.php?mod=list&catid=%d&page=%d' % (catid,i)
+    #         get_all_link(url,catid)
 
 if __name__ == '__main__':
     task_cuyoo_spider()

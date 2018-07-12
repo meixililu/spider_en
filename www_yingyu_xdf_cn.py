@@ -32,7 +32,7 @@ def nowplaying_movies(url,img_url):
     try:
         title = soup.find('p',class_='title1 f-f0').text
         if is_exit(title):
-            # print('already exit')
+            print('already exit')
             return
         else:
             timestr = soup.find('p',class_='art_time').text
@@ -78,14 +78,14 @@ def nowplaying_movies(url,img_url):
 
             item_id += 1
             typeId = get_type_id(type_name)
-            # print title
-            # print item_id
-            # print typeId
-            # print type_name
-            # print media_url
-            # print img_url
-            # print publish_time
-            # print ('contents:\n' + contents)
+            print title
+            print item_id
+            print typeId
+            print type_name
+            print media_url
+            print img_url
+            print publish_time
+            print ('contents:\n' + contents)
 
             Composition = Object.extend('Reading')
             mComposition = Composition()
@@ -103,7 +103,7 @@ def nowplaying_movies(url,img_url):
             mComposition.set('category_2', category_2)
             mComposition.set('type', type)
             mComposition.set('media_url', media_url)
-            mComposition.save()
+            # mComposition.save()
             # print('save item')
     except:
         print traceback.format_exc()
@@ -146,7 +146,7 @@ def get_all_link(url):
     alinks = ul.find_all('a')
     for i in range(len(alinks)-1,-1,-1):
         href = alinks[i].get('href')
-        # print 'catch url:' + href
+        print 'catch url:' + href
         nowplaying_movies(href,'')
 
 item_id = 0
@@ -165,6 +165,8 @@ def task_www_yingyu_xdf_cn():
     # print('item_id %d' % item_id)
     urls = {"http://yingyu.xdf.cn/list_907_1.html",
             "http://yingyu.xdf.cn/list_1799_1.html",
+            "http://yingyu.xdf.cn/list_6128_1.html",
+            "http://yingyu.xdf.cn/list_6122_1.html",
 
             "http://yingyu.xdf.cn/list_903_1.html",
             "http://yingyu.xdf.cn/list_2458_1.html",

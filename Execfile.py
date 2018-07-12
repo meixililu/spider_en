@@ -9,8 +9,6 @@ from iciba_study_spider import *
 from spder_record import *
 from spder_record_finish import *
 from jianghu_reading_spider import *
-from yingyu_com_chilren_story_spider import *
-from yingyu_com_chilren_spoken_english_spider import *
 from adreep_spider import *
 from Henxingwang_composition_spider import *
 from Henxingwang_word_spider import *
@@ -22,7 +20,6 @@ from www_iyuba_com import *
 from youdaoapp import *
 from www_yingyu_xdf_cn import *
 from joke import *
-from neihanduanziapp import *
 from dytt8 import *
 from chinavoa_com import *
 from dict_eudic_spider import *
@@ -38,11 +35,7 @@ def dailySentence():
         getJokeTask()
     except:
         print traceback.format_exc()
-    try:
-        print 'execfile------neihanduanziapp'
-        neihanduanziapp()
-    except:
-        print traceback.format_exc()
+
 
 def iciba_study_spider():
     try:
@@ -58,19 +51,19 @@ def jianghu_reading_spider():
     except:
         print traceback.format_exc()
 
-def yingyu_com_chilren_story_spider():
-    try:
-        print 'execfile------yingyu_com_chilren_story_spider.py'
-        task_yingyu_com_chilren_story_spider()
-    except:
-        print traceback.format_exc()
+# def yingyu_com_chilren_story_spider():
+#     try:
+#         print 'execfile------yingyu_com_chilren_story_spider.py'
+#         task_yingyu_com_chilren_story_spider()
+#     except:
+#         print traceback.format_exc()
 
-def yingyu_com_chilren_spoken_english_spider():
-    try:
-        print 'execfile------yingyu_com_chilren_spoken_english_spider.py'
-        task_yingyu_com_chilren_spoken_english_spider()
-    except:
-        print traceback.format_exc()
+# def yingyu_com_chilren_spoken_english_spider():
+#     try:
+#         print 'execfile------yingyu_com_chilren_spoken_english_spider.py'
+#         task_yingyu_com_chilren_spoken_english_spider()
+#     except:
+#         print traceback.format_exc()
 
 def adreep_spider():
     try:
@@ -104,13 +97,6 @@ def henxingwang_yuedulijie_spider():
     try:
         print 'execfile------Henxingwang_yuedulijie_spider.py'
         task_Henxingwang_yuedulijie_spider()
-    except:
-        print traceback.format_exc()
-
-def cuyoo_spider():
-    try:
-        print 'execfile------cuyoo_spider.py'
-        task_cuyoo_spider()
     except:
         print traceback.format_exc()
 
@@ -169,10 +155,10 @@ if __name__ == '__main__':
     threads.append(t2)
     t3 = threading.Thread(target=jianghu_reading_spider, args=())
     threads.append(t3)
-    t4 = threading.Thread(target=yingyu_com_chilren_story_spider, args=())
-    threads.append(t4)
-    t5 = threading.Thread(target=yingyu_com_chilren_spoken_english_spider, args=())
-    threads.append(t5)
+    # t4 = threading.Thread(target=yingyu_com_chilren_story_spider, args=())
+    # threads.append(t4)
+    # t5 = threading.Thread(target=yingyu_com_chilren_spoken_english_spider, args=())
+    # threads.append(t5)
     t6 = threading.Thread(target=adreep_spider, args=())
     threads.append(t6)
     t7 = threading.Thread(target=henxingwang_composition_spider, args=())
@@ -183,8 +169,8 @@ if __name__ == '__main__':
     threads.append(t9)
     t10 = threading.Thread(target=henxingwang_yuedulijie_spider, args=())
     threads.append(t10)
-    t11 = threading.Thread(target=cuyoo_spider, args=())
-    threads.append(t11)
+    # t11 = threading.Thread(target=cuyoo_spider, args=())
+    # threads.append(t11)
     t12 = threading.Thread(target=en8848_story_spider, args=())
     threads.append(t12)
     t13 = threading.Thread(target=www_iyuba_com, args=())
