@@ -23,6 +23,7 @@ from joke import *
 from dytt8 import *
 from chinavoa_com import *
 from dict_eudic_spider import *
+from toutiaospider import *
 
 def dailySentence():
     try:
@@ -51,12 +52,12 @@ def jianghu_reading_spider():
     except:
         print traceback.format_exc()
 
-# def yingyu_com_chilren_story_spider():
-#     try:
-#         print 'execfile------yingyu_com_chilren_story_spider.py'
-#         task_yingyu_com_chilren_story_spider()
-#     except:
-#         print traceback.format_exc()
+def toutiao_spider():
+    try:
+        print 'execfile------toutiao_spider.py'
+        task_toutiaoapi()
+    except:
+        print traceback.format_exc()
 
 # def yingyu_com_chilren_spoken_english_spider():
 #     try:
@@ -155,8 +156,8 @@ if __name__ == '__main__':
     threads.append(t2)
     t3 = threading.Thread(target=jianghu_reading_spider, args=())
     threads.append(t3)
-    # t4 = threading.Thread(target=yingyu_com_chilren_story_spider, args=())
-    # threads.append(t4)
+    t4 = threading.Thread(target=toutiao_spider, args=())
+    threads.append(t4)
     # t5 = threading.Thread(target=yingyu_com_chilren_spoken_english_spider, args=())
     # threads.append(t5)
     t6 = threading.Thread(target=adreep_spider, args=())
