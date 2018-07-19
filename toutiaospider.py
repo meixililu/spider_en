@@ -61,7 +61,7 @@ def detail(url,title,publish_time,img_url,small_img):
         global type_name
 
         if is_exit(url):
-            print 'url is exit'
+            # print 'url is exit'
             return
 
         # sourceTag = soup.find('source')
@@ -90,10 +90,10 @@ def detail(url,title,publish_time,img_url,small_img):
         mComposition.set('type', "video")
         mComposition.set('media_url', "")
         mComposition.save()
-        print('save item')
+        # print('save item')
     except:
         print 'exception detail'
-        print traceback.format_exc()
+        # print traceback.format_exc()
         pass
 
 
@@ -132,14 +132,14 @@ def search(url):
                         small_img.append(img['src'])
 
 
-                print title
-                print category
-                print type_name
-                print detail_url
-                print timestr
-                print img_url
-                print small_img
-                print "----------"
+                # print title
+                # print category
+                # print type_name
+                # print detail_url
+                # print timestr
+                # print img_url
+                # print small_img
+                # print "----------"
                 detail(detail_url,title,publish_time,img_url,small_img)
 
 category = "shuangyu_reading"
@@ -173,7 +173,7 @@ def task_toutiaoapi():
             # url = 'https://m.toutiao.com/search_content/?offset=%d&count=20&from=search_tab&keyword=英语'%(i)英语听力
             #video
             url = 'https://m.toutiao.com/search_content/?offset=%d&count=20&from=video&keyword=%s'%(i,type)
-            print url
+            # print url
             search(url)
 
 
