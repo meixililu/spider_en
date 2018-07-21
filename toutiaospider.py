@@ -69,7 +69,7 @@ def detail(url,title,publish_time,img_url,small_img):
         #     media_url = sourceTag['src']
         #     print media_url
 
-        item_id = get_lastest_item_id()
+        item_id = get_lastest_item_id() + 1
 
         Composition = Object.extend('Reading')
         mComposition = Composition()

@@ -24,6 +24,7 @@ from dytt8 import *
 from chinavoa_com import *
 from dict_eudic_spider import *
 from toutiaospider import *
+from voase_com import *
 
 def dailySentence():
     try:
@@ -59,12 +60,12 @@ def toutiao_spider():
     except:
         print traceback.format_exc()
 
-# def yingyu_com_chilren_spoken_english_spider():
-#     try:
-#         print 'execfile------yingyu_com_chilren_spoken_english_spider.py'
-#         task_yingyu_com_chilren_spoken_english_spider()
-#     except:
-#         print traceback.format_exc()
+def voase_com_spider():
+    try:
+        print 'execfile------voase_com_spider.py'
+        task_voase_cn()
+    except:
+        print traceback.format_exc()
 
 def adreep_spider():
     try:
@@ -158,8 +159,8 @@ if __name__ == '__main__':
     threads.append(t3)
     t4 = threading.Thread(target=toutiao_spider, args=())
     threads.append(t4)
-    # t5 = threading.Thread(target=yingyu_com_chilren_spoken_english_spider, args=())
-    # threads.append(t5)
+    t5 = threading.Thread(target=voase_com_spider, args=())
+    threads.append(t5)
     t6 = threading.Thread(target=adreep_spider, args=())
     threads.append(t6)
     t7 = threading.Thread(target=henxingwang_composition_spider, args=())
