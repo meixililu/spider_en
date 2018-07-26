@@ -88,7 +88,7 @@ def detail(url,title,publish_time,img_url,small_img):
         mComposition.set('category', category)
         mComposition.set('category_2', "")
         mComposition.set('type', "video")
-        mComposition.set('media_url', "")
+        mComposition.set('media_url', "media_url")
         mComposition.save()
         # print('save item')
     except:
