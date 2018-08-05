@@ -148,10 +148,13 @@ type_name = u"英语学习"
 def task_toutiaoapi():
     global category
     global type_name
+
     types = [u'英语',u'英语口语',u'英语听力',u'英语四级',u'英语写作',u'英语单词',u'英语考试',
              u'英语语法',u'初中英语',u'英语故事',u'英语小说',u'高中英语',u'大学英语',u'英语视频',
              u'英语学习',u'中级英语',u'高级英语',u'英语学习方法',u'英语音标',u'英语入门',u'英语基础',
-             u'小学英语',u'考研英语',u'英语教学',u'英语发音']
+             u'小学英语',u'考研英语',u'英语教学',u'英语发音',u'优说英语',u'地道英语',u'cc皇家学院',
+            u'Kevin英语情报局',u'英语小救星',u'英语频道',
+            u'听书问道',u'人人英语',u'海涛英语',u'不学英语',u'英语干货铺',u'杰杰英语']
     for type in types:
         if u'口语' in type:
             category = "spoken_english"
