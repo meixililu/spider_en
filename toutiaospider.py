@@ -124,7 +124,9 @@ def search(url):
                 span = section.find('span',class_='time fr')
                 if span:
                     timestr = span['title']
-                    publish_time = datetime.strptime(timestr, "%Y-%m-%d %H:%M:%S")
+                    # print "timestr:"+timestr
+                    if timestr:
+                        publish_time = datetime.strptime(timestr, "%Y-%m-%d %H:%M:%S")
                 imgs = section.find_all('img')
                 if len(imgs) > 0:
                     img_url = imgs[0]['src']
@@ -140,7 +142,8 @@ def search(url):
                 # print img_url
                 # print small_img
                 # print "----------"
-                detail(detail_url,title,publish_time,img_url,small_img)
+                if title:
+                    detail(detail_url,title,publish_time,img_url,small_img)
 
 category = "shuangyu_reading"
 type_name = u"英语学习"
@@ -172,10 +175,10 @@ def task_toutiaoapi():
             category = "shuangyu_reading"
         type_name = type
 
-        for i in range(0,20,20):
-            # url = 'https://m.toutiao.com/search_content/?offset=%d&count=20&from=search_tab&keyword=英语'%(i)英语听力
+        for i in range(0,30,30):
+            # url = 'https://m.toutiao.com/search_content/?offset=%d&count=30&from=search_tab&keyword=英语'%(i)英语听力
             #video
-            url = 'https://m.toutiao.com/search_content/?offset=%d&count=20&from=video&keyword=%s'%(i,type)
+            url = 'https://m.toutiao.com/search_content/?offset=%d&count=30&from=video&keyword=%s'%(i,type)
             # print url
             search(url)
 
