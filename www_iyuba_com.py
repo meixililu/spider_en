@@ -160,24 +160,25 @@ category_2 = ''
 type = 'text'
 
 def task_www_iyuba_com():
-    global item_id
-    global category
-    global category_2
-    global type_name
-    item_id = get_lastest_item_id();
-    # print('item_id %d' % item_id)
-    urls = {"http://news.iyuba.com/essay_category/125/1.html",
-            "http://news.iyuba.com/essay_category/120/1.html",
-            "http://news.iyuba.com/essay_category/121/1.html",
-            "http://news.iyuba.com/essay_category/122/1.html",
-            "http://news.iyuba.com/essay_category/123/1.html",
-            "http://news.iyuba.com/essay_category/126/1.html",
-            "http://news.iyuba.com/essay_category/124/1.html",
-            "http://news.iyuba.com/essay_category/127/1.html",
-            "http://news.iyuba.com/essay_category/128/1.html"
-            }
-    for url in urls:
-        get_all_link(url)
+    pass
+    # global item_id
+    # global category
+    # global category_2
+    # global type_name
+    # item_id = get_lastest_item_id();
+    # # print('item_id %d' % item_id)
+    # urls = {"http://news.iyuba.com/essay_category/125/1.html",
+    #         "http://news.iyuba.com/essay_category/120/1.html",
+    #         "http://news.iyuba.com/essay_category/121/1.html",
+    #         "http://news.iyuba.com/essay_category/122/1.html",
+    #         "http://news.iyuba.com/essay_category/123/1.html",
+    #         "http://news.iyuba.com/essay_category/126/1.html",
+    #         "http://news.iyuba.com/essay_category/124/1.html",
+    #         "http://news.iyuba.com/essay_category/127/1.html",
+    #         "http://news.iyuba.com/essay_category/128/1.html"
+    #         }
+    # for url in urls:
+    #     get_all_link(url)
 
 
 if __name__ == '__main__':

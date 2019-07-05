@@ -1,8 +1,4 @@
 # -*- coding:utf-8 -*-
-import sys
-import os
-import time
-import traceback
 import threading
 from DailySentence import *
 from iciba_study_spider import *
@@ -14,17 +10,18 @@ from Henxingwang_composition_spider import *
 from Henxingwang_word_spider import *
 from Henxingwang_listening_spider import *
 from Henxingwang_yuedulijie_spider import *
-from cuyoo_spider import *
 from en8848_story_spider import *
 from www_iyuba_com import *
 from youdaoapp import *
 from www_yingyu_xdf_cn import *
 from joke import *
-from dytt8 import *
 from chinavoa_com import *
 from dict_eudic_spider import *
 from toutiaospider import *
-from voase_com import *
+from toutiaospider_rh import *
+from toutiaospider_yue import *
+from toutiaospider_yw import *
+from voa51_com import *
 
 def dailySentence():
     try:
@@ -37,7 +34,6 @@ def dailySentence():
         getJokeTask()
     except:
         print traceback.format_exc()
-
 
 def iciba_study_spider():
     try:
@@ -60,10 +56,31 @@ def toutiao_spider():
     except:
         print traceback.format_exc()
 
-def voase_com_spider():
+def toutiao_yw_spider():
     try:
-        print 'execfile------voase_com_spider.py'
-        task_voase_cn()
+        print 'execfile------toutiao_yw_spider.py'
+        task_toutiaoapi_yw()
+    except:
+        print traceback.format_exc()
+
+def toutiao_rh_spider():
+    try:
+        print 'execfile------toutiao_rh_spider.py'
+        task_toutiao_rh()
+    except:
+        print traceback.format_exc()
+
+def toutiao_yue_spider():
+    try:
+        print 'execfile------toutiao_yue_spider.py'
+        task_toutiaoapi_yue()
+    except:
+        print traceback.format_exc()
+
+def voa51_com_spider():
+    try:
+        print 'execfile------voa51_com_spider.py'
+        voa51()
     except:
         print traceback.format_exc()
 
@@ -159,7 +176,7 @@ if __name__ == '__main__':
     threads.append(t3)
     t4 = threading.Thread(target=toutiao_spider, args=())
     threads.append(t4)
-    t5 = threading.Thread(target=voase_com_spider, args=())
+    t5 = threading.Thread(target=voa51_com_spider, args=())
     threads.append(t5)
     t6 = threading.Thread(target=adreep_spider, args=())
     threads.append(t6)
@@ -171,8 +188,6 @@ if __name__ == '__main__':
     threads.append(t9)
     t10 = threading.Thread(target=henxingwang_yuedulijie_spider, args=())
     threads.append(t10)
-    # t11 = threading.Thread(target=cuyoo_spider, args=())
-    # threads.append(t11)
     t12 = threading.Thread(target=en8848_story_spider, args=())
     threads.append(t12)
     t13 = threading.Thread(target=www_iyuba_com, args=())
@@ -185,6 +200,12 @@ if __name__ == '__main__':
     threads.append(t16)
     t17 = threading.Thread(target=dict_education, args=())
     threads.append(t17)
+    t18 = threading.Thread(target=toutiao_yw_spider, args=())
+    threads.append(t18)
+    t19 = threading.Thread(target=toutiao_rh_spider, args=())
+    threads.append(t19)
+    t20 = threading.Thread(target=toutiao_yue_spider, args=())
+    threads.append(t20)
 
     for t in threads:
         t.setDaemon(True)

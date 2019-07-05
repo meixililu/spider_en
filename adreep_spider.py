@@ -44,12 +44,12 @@ def nowplaying_movies(url,publish_time):
     if img_tag:
         img_url = "http://www.adreep.cn" + img_tag[0]['src']
 
-    # print(title)
-    # print(type_name)
-    # print(typeId)
-    # print(item_id)
-    # print(contents)
-    # print(img_url)
+    print(title)
+    print(type_name)
+    print(typeId)
+    print(item_id)
+    print(contents)
+    print(img_url)
 
     item_id += 1
     Composition = Object.extend('Reading')

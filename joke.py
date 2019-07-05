@@ -480,71 +480,71 @@ def neihanduanzi():
 
 def txapi():
     global sign
-    for page in range(1,2):
-        para = '&page=%s&num=20&rand=1' % (page)
-        url = 'http://route.showapi.com/197-1'+ sign + para
-        # print page
-        # print url
-        req = requests.get(url)
-        # print req.text
-        result = json.loads(req.text)
-        if 0 == result['showapi_res_code']:
-            newslist = result['showapi_res_body']['newslist']
-            for data in newslist:
-                if is_exit(data['title']):
-                    # print 'exit and continue'
-                    continue
-                else:
-                    # print data['title']
-                    # print data['picUrl']
-                    # print data['url']
-                    ratio = getImageRatio(data['picUrl'])
-                    if ratio == 5.5555:
-                        continue
-                    Reading = Object.extend('Joke')
-                    mReading = Reading()
-                    mReading.set('text', data['title'])
-                    mReading.set('img', data['picUrl'])
-                    mReading.set('ratio', ratio)
-                    mReading.set('source_url', data['url'])
-                    mReading.set('type', '1')
-                    mReading.set('category', '103')
-                    mReading.save()
+    # for page in range(1,2):
+    #     para = '&page=%s&num=20&rand=1' % (page)
+    #     url = 'http://route.showapi.com/197-1'+ sign + para
+    #     # print page
+    #     # print url
+    #     req = requests.get(url)
+    #     # print req.text
+    #     result = json.loads(req.text)
+    #     if 0 == result['showapi_res_code']:
+    #         newslist = result['showapi_res_body']['newslist']
+    #         for data in newslist:
+    #             if is_exit(data['title']):
+    #                 # print 'exit and continue'
+    #                 continue
+    #             else:
+    #                 # print data['title']
+    #                 # print data['picUrl']
+    #                 # print data['url']
+    #                 ratio = getImageRatio(data['picUrl'])
+    #                 if ratio == 5.5555:
+    #                     continue
+    #                 Reading = Object.extend('Joke')
+    #                 mReading = Reading()
+    #                 mReading.set('text', data['title'])
+    #                 mReading.set('img', data['picUrl'])
+    #                 mReading.set('ratio', ratio)
+    #                 mReading.set('source_url', data['url'])
+    #                 mReading.set('type', '1')
+    #                 mReading.set('category', '103')
+                    # mReading.save()
                     # print('save item')
 
 def huabanfuli():
     global sign
     # 34 37 39
-    types = [34, 37, 39]
-    for tyep in types:
-        for page in range(1,2):
-            para = '&page=%s&num=10&type=%s' % (page, tyep)
-            url = 'http://route.showapi.com/819-1'+ sign + para
-            # print url
-            req = requests.get(url)
-            # print req.text
-            result = json.loads(req.text)
-            if 0 == result['showapi_res_code']:
-                for i in range(0,10):
-                    data = result['showapi_res_body'][str(i)]
-                    if is_exit(data['title']):
-                        # print 'exit and continue'
-                        continue
-                    else:
-                        # print data['title']
-                        # print data['thumb']
-                        # print data['url']
-                        ratio = getImageRatio(data['thumb'])
-                        Reading = Object.extend('Joke')
-                        mReading = Reading()
-                        mReading.set('text', data['title'])
-                        mReading.set('img', data['thumb'])
-                        mReading.set('ratio', ratio)
-                        mReading.set('source_url', data['url'])
-                        mReading.set('type', '1')
-                        mReading.set('category', '103')
-                        if ratio != 5.5555:
-                            mReading.save()
+    # types = [34, 37, 39]
+    # for tyep in types:
+    #     for page in range(1,2):
+    #         para = '&page=%s&num=10&type=%s' % (page, tyep)
+    #         url = 'http://route.showapi.com/819-1'+ sign + para
+    #         # print url
+    #         req = requests.get(url)
+    #         # print req.text
+    #         result = json.loads(req.text)
+    #         if 0 == result['showapi_res_code']:
+    #             for i in range(0,10):
+    #                 data = result['showapi_res_body'][str(i)]
+    #                 if is_exit(data['title']):
+    #                     # print 'exit and continue'
+    #                     continue
+    #                 else:
+    #                     # print data['title']
+    #                     # print data['thumb']
+    #                     # print data['url']
+    #                     ratio = getImageRatio(data['thumb'])
+    #                     Reading = Object.extend('Joke')
+    #                     mReading = Reading()
+    #                     mReading.set('text', data['title'])
+    #                     mReading.set('img', data['thumb'])
+    #                     mReading.set('ratio', ratio)
+    #                     mReading.set('source_url', data['url'])
+    #                     mReading.set('type', '1')
+    #                     mReading.set('category', '103')
+    #                     if ratio != 5.5555:
+    #                         mReading.save()
                             # print('save item')
 
 def getImageRatio(url):
@@ -587,16 +587,6 @@ def getJokeTask():
         wenbenxiaohua()
     except:
         print 'except wenbenxiaohua'
-        print traceback.format_exc()
-    try:
-        huabanfuli()
-    except:
-        print 'except huabanfuli'
-        print traceback.format_exc()
-    try:
-        txapi()
-    except:
-        print 'except txapi'
         print traceback.format_exc()
     try:
         tupianxiaohua()

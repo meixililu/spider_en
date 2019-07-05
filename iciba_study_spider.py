@@ -35,6 +35,8 @@ def nowplaying_movies(url,img_url):
         title = soup.find('h1',class_='article-h').text
         time_str = soup.find('p',class_='article-aside').text.strip()
         publish_time = datetime.strptime(time_str.encode('utf-8')[0:19], "%Y-%m-%d %H:%M:%S")
+        if publish_time > datetime.now():
+            publish_time = datetime.now()
         if is_exit(title):
             # print('already exit')
             return

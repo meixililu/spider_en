@@ -7,143 +7,92 @@ from leancloud import Object
 from leancloud import Query
 from datetime import *
 import traceback
+import HttpUtil
 
 
 leancloud.init('3fg5ql3r45i3apx2is4j9on5q5rf6kapxce51t5bc0ffw2y4', 'twhlgs6nvdt7z7sfaw76ujbmaw7l12gb8v6sdyjw1nzk9b1a')
 
-def get_lastest_item_id():
-    query = Query('Reading')
-    query.descending("item_id")
-    query.limit(1)
-    querys = query.find()
-    if len(querys) == 0:
-        return 0
-    else:
-        return querys[0].get("item_id")
 
 def is_exit(str):
     global category
     global type_name
     query = Query('Reading')
-    # query.equal_to('title', str)
     query.equal_to('source_url', str)
     querys = query.find()
-    # if len(querys) > 0:
-    #     data = querys[0]
-    #     data.set('type_name', type_name)
-    #     data.set('category', category)
-    #     data.save()
-    #     print 'update success'
-
     return len(querys) > 0
-
-
-
-def detail(url,title,publish_time,img_url,small_img):
-    try:
-        # headers = {
-        #     'User-Agent': 'Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Mobile Safari/537.36'}
-        # dcap = dict(DesiredCapabilities.PHANTOMJS)
-        # dcap["phantomjs.page.settings.userAgent"] = (
-        #     "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Mobile Safari/537.36"
-        # )
-        #
-        # # browser = webdriver.PhantomJS(executable_path='/root/phantomjs/bin/phantomjs')
-        # browser = webdriver.PhantomJS(executable_path='/Users/luli/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs', desired_capabilities=dcap)
-        # # browser = webdriver.PhantomJS(executable_path='/Users/luli/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs')
-        # browser.implicitly_wait(1)
-        # browser.get(url)
-        #
-        # soup = BeautifulSoup(browser.page_source, "html5lib")
-        # media_url = ''
-        # print browser.current_url
-        global category
-        global type_name
-
-        if is_exit(url):
-            # print 'url is exit'
-            return
-
-        # sourceTag = soup.find('source')
-        # if sourceTag:
-        #     media_url = sourceTag['src']
-        #     print media_url
-
-        item_id = get_lastest_item_id() + 1
-
-        Composition = Object.extend('Reading')
-        mComposition = Composition()
-        mComposition.set('item_id', item_id)
-        mComposition.set('title', title)
-        mComposition.set('img_url', img_url)
-        mComposition.set('small_img', small_img)
-        mComposition.set('img_type', 'url')
-        mComposition.set('content', "")
-        mComposition.set('content_type', "url")
-        mComposition.set('type_name', type_name)
-        mComposition.set('publish_time', publish_time)
-        mComposition.set('source_url', url)
-        mComposition.set('source_name', u"今日头条")
-        mComposition.set('level', "")
-        mComposition.set('category', category)
-        mComposition.set('category_2', "")
-        mComposition.set('type', "video")
-        mComposition.set('media_url', "media_url")
-        mComposition.save()
-        # print('save item')
-    except:
-        print 'exception detail'
-        # print traceback.format_exc()
-        pass
-
 
 def search(url):
     global category
     global type_name
-    req = requests.get(url)
-    result = json.loads(req.text)
-    html = result['html']
-    # print html
-    # print "----------------------"
-    soup = BeautifulSoup(html, "html5lib")
-    sections = soup.find_all('section')
-    small_img = []
-    img_url = ''
-    timestr = ''
-    publish_time = datetime.now()
-    if len(sections) > 0:
-        for section in sections:
-            # print section
-            aTag = section.find('a')
-            href = aTag['href']
-            if len(href) > 0:
-                detail_url = "https://m.toutiao.com"+aTag['href']
-                h3 = section.find('h3')
-                if h3:
-                    title = h3.text
-                span = section.find('span',class_='time fr')
-                if span:
-                    timestr = span['title']
-                    # print "timestr:"+timestr
-                    if timestr:
-                        publish_time = datetime.strptime(timestr, "%Y-%m-%d %H:%M:%S")
-                imgs = section.find_all('img')
-                if len(imgs) > 0:
-                    img_url = imgs[0]['src']
-                    for img in imgs:
-                        small_img.append(img['src'])
+    try:
+        req = requests.get(url)
+        result = json.loads(req.text)
+        print result
+        data = result['data']
+        if len(data) == 0:
+            # print 'len==0'
+            return
+        for item in data:
+            small_img = []
+            img_urls = []
+            img_url = ''
+            try:
+                publish_time = datetime.strptime(item['datetime'], "%Y-%m-%d %H:%M:%S")
+            except:
+                # print traceback.format_exc()
+                return
+            title = item['title']
+            content = item['abstract']
+            img_url = item['large_image_url']
+            if len(img_url) == 0:
+                img_url = item['middle_image_url']
+            source_url = 'https://m.toutiao.com' + item['open_url']
 
+            # print "----------"
+            # print title
+            # print category
+            # print type_name
+            # print publish_time
+            # print source_url
+            # print img_url
 
-                # print title
-                # print category
-                # print type_name
-                # print detail_url
-                # print timestr
-                # print img_url
-                # print small_img
-                # print "----------"
-                if title:
-                    detail(detail_url,title,publish_time,img_url,small_img)
+            if HttpUtil.is404(source_url):
+                # print 'is 404'
+                return
+            if is_exit(source_url):
+                # print 'url is exit'
+                return
+            mediaUrl = "media_url"
+            content_type = "url"
+            mediaUrlroot = "http://api.huoshan.com/hotsoon/item/video/_playback/?video_id=#&line=0&app_id=13"
+            vid = HttpUtil.getVid(source_url)
+            if "404" == vid:
+                return
+            elif vid:
+                mediaUrl = mediaUrlroot.replace("#", vid)
+                content_type = "url_media"
+
+            Composition = Object.extend('Reading')
+            mComposition = Composition()
+            mComposition.set('title', title)
+            mComposition.set('img_url', img_url)
+            mComposition.set('img_type', 'url')
+            mComposition.set('content', content)
+            mComposition.set('content_type', content_type)
+            mComposition.set('type_name', type_name)
+            mComposition.set('publish_time', publish_time)
+            mComposition.set('source_url', source_url)
+            mComposition.set('source_name', u"今日头条")
+            mComposition.set('level', "")
+            mComposition.set('category', category)
+            mComposition.set('category_2', "")
+            mComposition.set('type', "video")
+            mComposition.set('media_url', mediaUrl)
+            mComposition.save()
+            # print('save item')
+    except:
+        # print traceback.format_exc()
+        return
 
 category = "shuangyu_reading"
 type_name = u"英语学习"
@@ -175,11 +124,8 @@ def task_toutiaoapi():
             category = "shuangyu_reading"
         type_name = type
 
-        for i in range(0,30,30):
-            # url = 'https://m.toutiao.com/search_content/?offset=%d&count=30&from=search_tab&keyword=英语'%(i)英语听力
-            #video
-            url = 'https://m.toutiao.com/search_content/?offset=%d&count=30&from=video&keyword=%s'%(i,type)
-            # print url
+        for i in range(0,150,10):
+            url = 'https://www.toutiao.com/search_content/?offset=%d&format=json&keyword=%s&autoload=true&count=10&cur_tab=2&from=video&aid=24'%(i,type)
             search(url)
 
 
