@@ -16,11 +16,18 @@ leancloud.init('3fg5ql3r45i3apx2is4j9on5q5rf6kapxce51t5bc0ffw2y4', 'twhlgs6nvdt7
 
 def is_exit(str,url):
     global category
+    global type_name
+    global typeId
     query = Query('Reading')
     query.equal_to('title', str)
     query.equal_to('category', category)
     query.equal_to('source_url', url)
     querys = query.find()
+    # if len(querys) > 0:
+    #     item = querys[0]
+    #     item.set('type_id', typeId)
+    #     item.set('type_name', type_name)
+    #     item.save()
     return len(querys) > 0
 
 def is_category_exit(name):
@@ -52,7 +59,7 @@ def parse_detail(url):
     global item_id
     global category_2
     global type_name
-    # url = 'http://www.tingclass.net/show-8418-400335-1.html'
+    global typeId
     type = 'text'
     title = ''
     contents = ''
@@ -142,8 +149,8 @@ def parse_detail(url):
             mComposition.set('content', contents)
             mComposition.set('type_name', type_name)
             mComposition.set('publish_time', publish_time)
-            mComposition.set('type_id', '')
             mComposition.set('source_url', url)
+            mComposition.set('type_id', typeId)
             mComposition.set('source_name', source_name)
             mComposition.set('category', category)
             mComposition.set('category_2', category_2)
@@ -158,7 +165,6 @@ def parse_detail(url):
         return
 
 def parse_page_num(url):
-    isParseNext = True
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36'}
     req = requests.get(url, headers=headers)
@@ -169,7 +175,7 @@ def parse_page_num(url):
         for link in alinks:
             if link:
                 print 'parse_title_list:' + link['href']
-                isParseNext = parse_detail(link['href'])
+                parse_detail(link['href'])
     except:
         print traceback.format_exc()
         print url
@@ -185,6 +191,28 @@ def parse_page_num(url):
         print traceback.format_exc()
         print url
 
+def parse_type1_list(url,soup,alinks):
+    try:
+        for item in alinks:
+            if item:
+                alink = item.find('a')
+                print 'parse_title_list:' + alink['href']
+                parse_detail(alink['href'])
+    except:
+        print traceback.format_exc()
+        print url
+    try:
+        nextPages = soup.find_all('a',class_='a1 next')
+        if len(nextPages) > 1:
+            if nextPages[1].has_attr('href'):
+                nextP = urlparse.urljoin(url, nextPages[1]['href'])
+                print 'nextPage:'+ nextP
+                parse_category_list(nextP)
+    except:
+        print traceback.format_exc()
+        print url
+
+
 def parse_category_list(url):
     global category_2
     headers = {
@@ -192,22 +220,21 @@ def parse_category_list(url):
     req = requests.get(url, headers=headers)
     req.encoding = 'utf-8'
     soup = BeautifulSoup(req.text, "html5lib")
+    print url
     try:
-        alinks = soup.find_all('li',class_='ell')
-        # print len(alinks)
-        for link in alinks:
-            nextLink = ''
-            alink = link.find_all('a')
-            if len(alink) > 1:
-                nextLink = alink[1]['href']
-                category_2 = alink[1].text
-            elif len(alink) == 1:
-                nextLink = alink[0]['href']
-                category_2 = alink[0].text
-            print nextLink
+        alinks = soup.find_all('dl',class_='list-1-con clearfix')
+        print len(alinks)
+        if alinks:
+            category_2 = ''
+            parse_type1_list(url,soup,alinks)
+        else:
+            titleTag = soup.find('h1')
+            if titleTag:
+                category_2 = titleTag.text.strip()
+                is_category_exit(category_2)
             print category_2
-            is_category_exit(category_2)
-            parse_page_num(nextLink)
+            parse_page_num(url)
+
     except:
         print traceback.format_exc()
         print url
@@ -221,101 +248,111 @@ category_2 = ''
 type = 'text'
 level = '1'
 code = ''
+typeId = ''
 
-def tingclass_spoken_english():
+def set_type_id(url):
     global category
     global type_name
     global level
     global code
-    category = u'spoken_english'
-    type_name = u'英语口语'
-    urls = []
-    # urls.append("http://www.tingclass.net/list-45-1.html")
-    urls.append("http://www.tingclass.net/list-36-1.html")
-    # urls.append("http://www.tingclass.net/list-241-1.html")
-    # urls.append("http://www.tingclass.net/list-241-1.html")
-    # urls.append("http://www.tingclass.net/list-1-1.html")
-    # urls.append("http://www.tingclass.net/list-508-1.html")
-    # urls.append("http://www.tingclass.net/list-91-1.html")
-    for url in urls:
-        if 'list-45-1' in url or 'list-36-1' in url:
-            level = '1'
-            code = '1'
-        else:
-            level = '2'
-            code = '2'
-        parse_category_list(url)
-
-def tingclass_listen_english():
-    global category
-    global type_name
-    global level
-    global code
-    category = u'listening'
+    global typeId
     level = '1'
     code = '1'
-    type_name = u'英语听力'
-    urls = []
-    # urls.append("http://www.tingclass.net/list-8283-1.html")
-    # urls.append("http://www.tingclass.net/list-8284-1.html")
-    # urls.append("http://www.tingclass.net/list-8285-1.html")
-    # urls.append("http://www.tingclass.net/list-608-1.html")
-    # urls.append("http://www.tingclass.net/list-449-1.html")
-    # urls.append("http://www.tingclass.net/list-430-1.html")
-    # urls.append("http://www.tingclass.net/list-131-1.html")
-    # urls.append("http://www.tingclass.net/list-9930-1.html")
-    for url in urls:
-        parse_category_list(url)
+    category = u'composition'
+    if '619' in url:
+        typeId = '1004'
+        type_name = u'小学作文'
+    elif '7932' in url or '7933' in url or '7934' in url or '617' in url or '6310' in url:
+        typeId = '1003'
+        type_name = u'初中作文'
+    elif '7937' in url or '7938' in url or '7939' in url or '613' in url or '6325' in url or '5887' in url or '9975' in url:
+        typeId = '1002'
+        type_name = u'高中作文'
+    elif '612' in url or '8548' in url:
+        typeId = '1001'
+        type_name = u'大学六级作文'
+    elif '611' in url or '5802' in url or '8547' in url or '9146' in url or '7810' in url or '9877' in url:
+        typeId = '1001'
+        type_name = u'大学四级作文'
+    elif '5789' in url or '615' in url:
+        typeId = '1001'
+        type_name = u'雅思作文'
+    elif '7675' in url:
+        typeId = '1001'
+        type_name = u'托福作文'
+    elif '610' in url:
+        typeId = '1001'
+        type_name = u'考研作文'
+    elif '614' in url:
+        typeId = '1001'
+        type_name = u'GRE作文'
+    elif '8232' in url:
+        typeId = '1001'
+        type_name = u'专四作文'
+    elif '8218' in url:
+        typeId = '1001'
+        type_name = u'专八作文'
+    elif '9854' in url:
+        typeId = '1001'
+        type_name = u'英语美文'
 
-def tingclass_reading_english():
+
+
+def tingclass_english():
     global category
     global type_name
     global level
     global code
-    category = u'shuangyu_reading'
-    level = '1'
-    code = '1'
-    type_name = u'英语儿歌'
+    category = u'composition'
+    type_name = u'英语作文'
     urls = []
-    urls.append("http://www.tingclass.net/list-582-1.html")
-    # urls.append("http://www.tingclass.net/list-8284-1.html")
-    # urls.append("http://www.tingclass.net/list-8285-1.html")
-    # urls.append("http://www.tingclass.net/list-608-1.html")
-    # urls.append("http://www.tingclass.net/list-449-1.html")
-    # urls.append("http://www.tingclass.net/list-430-1.html")
-    # urls.append("http://www.tingclass.net/list-131-1.html")
-    # urls.append("http://www.tingclass.net/list-9930-1.html")
-    for url in urls:
-        parse_category_list(url)
+    urls.append("http://www.tingclass.net/list-619-1.html")#小
 
-def tingclass_exam_english():
-    global category
-    global type_name
-    global level
-    global code
-    category = u'examination'
-    level = '1'
-    code = '1'
-    type_name = u'英语六级'
-    urls = []
-    urls.append("http://www.tingclass.net/list-7699-1.html")
-    urls.append("http://www.tingclass.net/list-426-1.html")
-    # urls.append("http://www.tingclass.net/list-8284-1.html")
-    # urls.append("http://www.tingclass.net/list-8285-1.html")
-    # urls.append("http://www.tingclass.net/list-608-1.html")
-    # urls.append("http://www.tingclass.net/list-449-1.html")
-    # urls.append("http://www.tingclass.net/list-430-1.html")
-    # urls.append("http://www.tingclass.net/list-131-1.html")
-    # urls.append("http://www.tingclass.net/list-9930-1.html")
+    urls.append("http://www.tingclass.net/list-7932-1.html")#初
+    urls.append("http://www.tingclass.net/list-7933-1.html")
+    urls.append("http://www.tingclass.net/list-7934-1.html")
+    urls.append("http://www.tingclass.net/list-617-1.html")
+    urls.append("http://www.tingclass.net/list-6310-1.html")
+
+    urls.append("http://www.tingclass.net/list-7937-1.html")#高
+    urls.append("http://www.tingclass.net/list-7938-1.html")
+    urls.append("http://www.tingclass.net/list-7939-1.html")
+    urls.append("http://www.tingclass.net/list-613-1.html")
+    urls.append("http://www.tingclass.net/list-6325-1.html")
+    urls.append("http://www.tingclass.net/list-5887-1.html")
+    urls.append("http://www.tingclass.net/list-9975-1.html")
+
+    urls.append("http://www.tingclass.net/list-612-1.html")#6
+    urls.append("http://www.tingclass.net/list-8548-1.html")
+
+    urls.append("http://www.tingclass.net/list-611-1.html")#4
+    urls.append("http://www.tingclass.net/list-5802-1.html")
+    urls.append("http://www.tingclass.net/list-8547-1.html")
+    urls.append("http://www.tingclass.net/list-9146-1.html")
+    urls.append("http://www.tingclass.net/list-7810-1.html")
+    urls.append("http://www.tingclass.net/list-9877-1.html")
+
+    urls.append("http://www.tingclass.net/list-5789-1.html")#雅思
+    urls.append("http://www.tingclass.net/list-615-1.html")
+
+    urls.append("http://www.tingclass.net/list-610-1.html")#考研
+
+    urls.append("http://www.tingclass.net/list-9854-1.html")#英语美文
+
+    urls.append("http://www.tingclass.net/list-8232-1.html")#专四
+
+    urls.append("http://www.tingclass.net/list-8218-1.html")#专八
+
+    urls.append("http://www.tingclass.net/list-7675-1.html")#托福
+
+    urls.append("http://www.tingclass.net/list-614-1.html")#GRE
     for url in urls:
+        set_type_id(url)
         parse_category_list(url)
 
 
 def doTingclassTask():
-    # tingclass_spoken_english()
-    # tingclass_listen_english()
-    tingclass_exam_english()
-
+    tingclass_english()
 
 
 if __name__ == '__main__':

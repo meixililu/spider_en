@@ -22,6 +22,7 @@ from toutiaospider_rh import *
 from toutiaospider_yue import *
 from toutiaospider_yw import *
 from voa51_com import *
+from chinadaily_spider import *
 
 def dailySentence():
     try:
@@ -154,6 +155,13 @@ def chinavoa_com():
     except:
         print traceback.format_exc()
 
+def chinadaily_com():
+    try:
+        print 'execfile------chinadaily_com.py'
+        chinadaily_task()
+    except:
+        print traceback.format_exc()
+
 def dict_education():
     try:
         print 'execfile------dict_education.py'
@@ -188,6 +196,8 @@ if __name__ == '__main__':
     threads.append(t9)
     t10 = threading.Thread(target=henxingwang_yuedulijie_spider, args=())
     threads.append(t10)
+    t11 = threading.Thread(target=chinadaily_com, args=())
+    threads.append(t11)
     t12 = threading.Thread(target=en8848_story_spider, args=())
     threads.append(t12)
     t13 = threading.Thread(target=www_iyuba_com, args=())

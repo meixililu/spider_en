@@ -219,8 +219,8 @@ category = u'shuangyu_reading'
 type_name = ''
 category_2 = ''
 type = 'text'
-level = '1'
-code = ''
+level = '3'
+code = '3'
 
 def tingclass_spoken_english():
     global category
@@ -228,93 +228,33 @@ def tingclass_spoken_english():
     global level
     global code
     category = u'spoken_english'
-    type_name = u'英语口语'
+    type_name = u'启蒙英语'
     urls = []
-    # urls.append("http://www.tingclass.net/list-45-1.html")
+    urls.append("http://www.tingclass.net/list-8381-1.html")
     urls.append("http://www.tingclass.net/list-36-1.html")
-    # urls.append("http://www.tingclass.net/list-241-1.html")
-    # urls.append("http://www.tingclass.net/list-241-1.html")
-    # urls.append("http://www.tingclass.net/list-1-1.html")
-    # urls.append("http://www.tingclass.net/list-508-1.html")
-    # urls.append("http://www.tingclass.net/list-91-1.html")
+    urls.append("http://www.tingclass.net/list-5-1.html")
+    urls.append("http://www.tingclass.net/list-8379-1.html")
+    urls.append("http://www.tingclass.net/list-8380-1.html")
+    urls.append("http://www.tingclass.net/list-8311-1.html")
+    urls.append("http://www.tingclass.net/list-8312-1.html")
     for url in urls:
-        if 'list-45-1' in url or 'list-36-1' in url:
-            level = '1'
-            code = '1'
-        else:
-            level = '2'
-            code = '2'
         parse_category_list(url)
 
-def tingclass_listen_english():
+def tingclass_doctor_english():
     global category
     global type_name
     global level
     global code
-    category = u'listening'
-    level = '1'
-    code = '1'
-    type_name = u'英语听力'
+    category = u'spoken_english'
+    type_name = u'听电影学英语'
     urls = []
-    # urls.append("http://www.tingclass.net/list-8283-1.html")
-    # urls.append("http://www.tingclass.net/list-8284-1.html")
-    # urls.append("http://www.tingclass.net/list-8285-1.html")
-    # urls.append("http://www.tingclass.net/list-608-1.html")
-    # urls.append("http://www.tingclass.net/list-449-1.html")
-    # urls.append("http://www.tingclass.net/list-430-1.html")
-    # urls.append("http://www.tingclass.net/list-131-1.html")
-    # urls.append("http://www.tingclass.net/list-9930-1.html")
+    # urls.append("http://www.tingclass.net/list-67-1.html")
+    urls.append("http://www.tingclass.net/list-428-1.html")
     for url in urls:
         parse_category_list(url)
-
-def tingclass_reading_english():
-    global category
-    global type_name
-    global level
-    global code
-    category = u'shuangyu_reading'
-    level = '1'
-    code = '1'
-    type_name = u'英语儿歌'
-    urls = []
-    urls.append("http://www.tingclass.net/list-582-1.html")
-    # urls.append("http://www.tingclass.net/list-8284-1.html")
-    # urls.append("http://www.tingclass.net/list-8285-1.html")
-    # urls.append("http://www.tingclass.net/list-608-1.html")
-    # urls.append("http://www.tingclass.net/list-449-1.html")
-    # urls.append("http://www.tingclass.net/list-430-1.html")
-    # urls.append("http://www.tingclass.net/list-131-1.html")
-    # urls.append("http://www.tingclass.net/list-9930-1.html")
-    for url in urls:
-        parse_category_list(url)
-
-def tingclass_exam_english():
-    global category
-    global type_name
-    global level
-    global code
-    category = u'examination'
-    level = '1'
-    code = '1'
-    type_name = u'英语六级'
-    urls = []
-    urls.append("http://www.tingclass.net/list-7699-1.html")
-    urls.append("http://www.tingclass.net/list-426-1.html")
-    # urls.append("http://www.tingclass.net/list-8284-1.html")
-    # urls.append("http://www.tingclass.net/list-8285-1.html")
-    # urls.append("http://www.tingclass.net/list-608-1.html")
-    # urls.append("http://www.tingclass.net/list-449-1.html")
-    # urls.append("http://www.tingclass.net/list-430-1.html")
-    # urls.append("http://www.tingclass.net/list-131-1.html")
-    # urls.append("http://www.tingclass.net/list-9930-1.html")
-    for url in urls:
-        parse_category_list(url)
-
 
 def doTingclassTask():
-    # tingclass_spoken_english()
-    # tingclass_listen_english()
-    tingclass_exam_english()
+    tingclass_doctor_english()
 
 
 
